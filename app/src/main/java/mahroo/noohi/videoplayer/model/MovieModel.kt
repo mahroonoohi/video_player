@@ -1,5 +1,7 @@
 package mahroo.noohi.videoplayer.model
 
+import java.time.Year
+
 data class MovieModel(
     val id: String = "",
     val title: String = "",
@@ -7,7 +9,7 @@ data class MovieModel(
     val thumbnail: String = "",
     val banner: String  = "",
     val subtitle: String = "",
-    val bio: String = ""
-) {
-
-}
+    val bio: String = "",
+    val year: String= "",
+    val genres: String =""
+)

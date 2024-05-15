@@ -70,6 +70,7 @@ class VideoPlayerActivity : ComponentActivity() {
                     passedSubUrl = intent.getStringExtra("Sub").toString()
                     passedBio = intent.getStringExtra("Bio").toString()
                     passedTitle = intent.getStringExtra("Title").toString()
+
                     Player()
                 }
             }

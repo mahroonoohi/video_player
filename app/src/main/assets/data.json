@@ -7,7 +7,9 @@
       "thumbnail": "https://m.media-amazon.com/images/S/pv-target-images/9e39552f26c52760492026c8f36116928ac3a2b3bb1bb5ab0e187aac69361fab._UR2000,3000_.jpg",
       "banner": "https://m.media-amazon.com/images/S/pv-target-images/1ec963e832611fd653f827ba64eb4ab44034fa88a25b014b7a7f1844880937c4._UR1920,1080_.jpg",
       "subtitle": "https://saymyname.website/?select=aHR0cHM6Ly9zdWJ0aXRsZS5ta3NlcnZlcnMuaXIvQWxtYXNFZGl0aW9uL01vdmllLzIwMTMvMDgxNjcxMS9Xb3JsZCUyMFdhciUyMFolMjAyMDEzJTIwLSUyMEJsdVJheS5zcnQqV29ybGQuV2FyLlouMjAxMy5VTlJBVEVELjEwODBwLkJsdVJheS5IMjY0LlJBUkJHKnNydA==",
-      "bio": "Nine noble families wage war against each other in order to gain control over the mythical land of Westeros. Meanwhile, a force is rising after millenniums and threatens the existence of living men."
+      "bio": "Nine noble families wage war against each other in order to gain control over the mythical land of Westeros. Meanwhile, a force is rising after millenniums and threatens the existence of living men.",
+      "year": "2024",
+      "genres": "Action"
     },
     {
       "id": "1",
@@ -16,7 +18,9 @@
       "thumbnail": "https://m.media-amazon.com/images/S/pv-target-images/d5f46c87921f6a416c02a8d99200ec6269f7473d744fadd701a1e9f2fd43509c._UR2000,3000_.png",
       "banner": "https://m.media-amazon.com/images/S/pv-target-images/0345e3278ea8e894adc93093199a0c2b83078e54ba703eb37074a68ab9edde08._UR1920,1080_.jpg",
       "subtitle": "https://saymyname.website/?select=aHR0cHM6Ly9zdWJ0aXRsZS5ta3NlcnZlcnMuaXIvQWxtYXNFZGl0aW9uL01vdmllLzIwMTMvMDgxNjcxMS9Xb3JsZCUyMFdhciUyMFolMjAyMDEzJTIwLSUyMEJsdVJheS5zcnQqV29ybGQuV2FyLlouMjAxMy5VTlJBVEVELjEwODBwLkJsdVJheS5IMjY0LlJBUkJHKnNydA==",
-      "bio": "Walter White, a chemistry teacher, discovers that he has cancer and decides to get into the meth-making business to repay his medical debts. His priorities begin to change when he partners with Jesse."
+      "bio": "Walter White, a chemistry teacher, discovers that he has cancer and decides to get into the meth-making business to repay his medical debts. His priorities begin to change when he partners with Jesse.",
+      "year": "2023",
+      "genres": "Romantic"
     }
   ]
 }

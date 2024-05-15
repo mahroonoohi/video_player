@@ -83,7 +83,7 @@ fun ListViewContent() {
             TopAppBar(title = {
                 Column(modifier = Modifier.padding(4.dp)) {
                     Text(
-                        text = "ExoPlayer Demo",
+                        text = "VideoPlayer Demo",
                         modifier = Modifier.wrapContentHeight(align = Alignment.CenterVertically)
                     )
                 }
@@ -97,7 +97,6 @@ fun ListViewContent() {
             }, actions = {
 
             })
-
         },
         content = { paddingValues ->
             VerticalListView(paddingValues)
@@ -140,11 +139,14 @@ fun MovieItemCard(item: MovieModel?, modifier: Modifier) {
             .padding(10.dp)
             .background(color = Color.White)
             .clickable {
-                val intent = Intent(context, VideoPlayerActivity::class.java)
+                val intent = Intent(context, VideoDescriptionActivity::class.java)
                 intent.putExtra("Key", item!!.trailer_url)
                 intent.putExtra("Title", item!!.title)
                 intent.putExtra("Sub", item!!.subtitle)
                 intent.putExtra("Bio", item!!.bio)
+                intent.putExtra("thumbnail", item!!.thumbnail)
+                intent.putExtra("Year",item!!.year)
+                intent.putExtra("Genres",item!!.genres)
                 context.startActivity(intent)
             },
         shape = RoundedCornerShape(10.dp)
