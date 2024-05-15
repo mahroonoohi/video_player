@@ -142,6 +142,9 @@ fun MovieItemCard(item: MovieModel?, modifier: Modifier) {
             .clickable {
                 val intent = Intent(context, VideoPlayerActivity::class.java)
                 intent.putExtra("Key", item!!.trailer_url)
+                intent.putExtra("Title", item!!.title)
+                intent.putExtra("Sub", item!!.subtitle)
+                intent.putExtra("Bio", item!!.bio)
                 context.startActivity(intent)
             },
         shape = RoundedCornerShape(10.dp)
