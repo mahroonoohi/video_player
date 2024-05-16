@@ -4,35 +4,24 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material3.Card
-import androidx.compose.material3.Divider
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
+import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material.icons.filled.ExitToApp
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.rounded.Menu
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -40,16 +29,20 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.rememberNavController
 import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
+import kotlinx.coroutines.launch
 import mahroo.noohi.videoplayer.includes.Tools.parseJsonFromAssets
 import mahroo.noohi.videoplayer.model.MovieModel
+import mahroo.noohi.videoplayer.ui.theme.Purple80
 import mahroo.noohi.videoplayer.ui.theme.VideoPlayerTheme
-
 
 class MainActivity : ComponentActivity() {
 
@@ -61,9 +54,7 @@ class MainActivity : ComponentActivity() {
                 ListViewContent()
             }
         }
-
     }
-
 }
 
 @Preview(showBackground = true)
@@ -74,35 +65,107 @@ fun GreetingPreview() {
     }
 }
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ListViewContent() {
+    val coroutineScope = rememberCoroutineScope()
+    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+    val context = LocalContext.current
 
-    Scaffold(
-        topBar = {
-            TopAppBar(title = {
-                Column(modifier = Modifier.padding(4.dp)) {
-                    Text(
-                        text = "VideoPlayer Demo",
-                        modifier = Modifier.wrapContentHeight(align = Alignment.CenterVertically)
-                    )
+    ModalNavigationDrawer(
+        drawerState = drawerState,
+        gesturesEnabled = true,
+        drawerContent = {
+            ModalDrawerSheet {
+                Box(
+                    modifier = Modifier
+                        .background(Purple80)
+                        .fillMaxWidth()
+                        .height(150.dp),
+                        contentAlignment = Alignment.Center
+                ) {
+                    Text(text = " Welcome! ",  fontWeight = FontWeight.Bold,
+                        fontStyle = FontStyle.Italic, fontSize = 25.sp)
                 }
-            }, navigationIcon = {
-                IconButton(onClick = { }) {
-                    Icon(
-                        Icons.Filled.Menu,
-                        "",
-                    )
-                }
-            }, actions = {
 
-            })
+                Divider()
+                NavigationDrawerItem(label = { Text(text = "Home", color = Purple80) },
+                    selected = false,
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Default.Home,
+                            contentDescription = "Home",
+                            tint = Purple80
+                        )
+                    },
+                    onClick = {
+                        coroutineScope.launch {
+                            drawerState.close()
+                        }
+                    })
+                NavigationDrawerItem(label = { Text(text = "YouTube", color = Purple80) },
+                    selected = false,
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Default.ArrowForward,
+                            contentDescription = "YouTube",
+                            tint = Purple80
+                        )
+                    },
+                    onClick = {
+                        coroutineScope.launch {
+                            drawerState.close()
+                        }
+                        val intent = Intent(context, YouTubeActivity::class.java) // Use context here
+                        context.startActivity(intent)
+                    })
+                NavigationDrawerItem(label = { Text(text = "Logout", color = Purple80) },
+                    selected = false,
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Default.ExitToApp,
+                            contentDescription = "Logout",
+                            tint = Purple80
+                        )
+                    },
+                    onClick = {
+                        coroutineScope.launch {
+                            drawerState.close()
+                        }
+                        Toast.makeText(context, "Logout", Toast.LENGTH_SHORT).show()
+                        (context as? ComponentActivity)?.finish() // Ensure correct activity context
+                        System.exit(0)
+                    })
+            }
         },
-        content = { paddingValues ->
-            VerticalListView(paddingValues)
-        }
-    )
-
+    ) {
+        Scaffold(
+            topBar = {
+                val coroutineScopes = rememberCoroutineScope()
+                TopAppBar(
+                    title = { Text(text = "Video Player Demo") },
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = Purple80,
+                        titleContentColor = Color.White,
+                        navigationIconContentColor = Color.White
+                    ),
+                    navigationIcon = {
+                        IconButton(onClick = {
+                            coroutineScopes.launch {
+                                drawerState.open()
+                            }
+                        }) {
+                            Icon(
+                                Icons.Rounded.Menu, contentDescription = "MenuButton"
+                            )
+                        }
+                    },
+                )
+            },
+            content = { paddingValues -> VerticalListView(paddingValues) }
+        )
+    }
 }
 
 @Composable
@@ -129,7 +192,6 @@ fun VerticalListView(paddingValues: PaddingValues) {
         })
 }
 
-
 @Composable
 fun MovieItemCard(item: MovieModel?, modifier: Modifier) {
     val context = LocalContext.current
@@ -145,8 +207,8 @@ fun MovieItemCard(item: MovieModel?, modifier: Modifier) {
                 intent.putExtra("Sub", item!!.subtitle)
                 intent.putExtra("Bio", item!!.bio)
                 intent.putExtra("thumbnail", item!!.thumbnail)
-                intent.putExtra("Year",item!!.year)
-                intent.putExtra("Genres",item!!.genres)
+                intent.putExtra("Year", item!!.year)
+                intent.putExtra("Genres", item!!.genres)
                 context.startActivity(intent)
             },
         shape = RoundedCornerShape(10.dp)
@@ -162,7 +224,7 @@ fun MovieItemCard(item: MovieModel?, modifier: Modifier) {
                 contentDescription = "",
                 contentScale = ContentScale.FillBounds,
                 onError = { ex ->
-                    Log.e("TAG_IMAGE_ERROR", "MovieItemCard: "+ex.result.request.error)
+                    Log.e("TAG_IMAGE_ERROR", "MovieItemCard: " + ex.result.request.error)
                 },
                 error = {
                     painterResource(R.drawable.ic_error)
@@ -170,7 +232,6 @@ fun MovieItemCard(item: MovieModel?, modifier: Modifier) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(220.dp),
-
                 loading = {
                     painterResource(R.drawable.placeholder_image)
                 }
@@ -183,16 +244,12 @@ fun MovieItemCard(item: MovieModel?, modifier: Modifier) {
                     .fillMaxWidth(),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
-                textAlign = TextAlign.Center
-                , fontStyle = FontStyle.Normal
+                textAlign = TextAlign.Center, fontStyle = FontStyle.Normal
             )
             Spacer(modifier = Modifier.height(10.dp))
         }
-
     }
-
 }
-
 
 @Composable
 private fun ListItemDivider() {
