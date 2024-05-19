@@ -40,6 +40,9 @@ import androidx.compose.ui.unit.sp
 import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
 import mahroo.noohi.videoplayer.ui.theme.VideoPlayerTheme
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+
 
 var movie_image: String = ""
 var movie_url: String = ""
@@ -71,11 +74,18 @@ class VideoDescriptionActivity : ComponentActivity() {
         }
     }
 }
-
+@Preview
 @Composable
 fun MovieDetailPage() {
     val context = LocalContext.current
-    Column {
+    val backgroundColor = Color(0xFFF3E5F5) // Light purple to pink background color
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = backgroundColor)
+            .padding(horizontal = 16.dp)
+    ) {
         SubcomposeAsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
                 .data(movie_image)
@@ -91,11 +101,12 @@ fun MovieDetailPage() {
             },
             modifier = Modifier
                 .fillMaxWidth()
-                .height(220.dp),
-
-            loading = {
-                painterResource(R.drawable.placeholder_image)
-            }
+                .height(220.dp)
+                .border(
+                    width = 1.dp,
+                    color = Color.LightGray,
+                    shape = RoundedCornerShape(8.dp)
+                )
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -104,11 +115,8 @@ fun MovieDetailPage() {
             text = movie_title,
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
-            modifier = Modifier
-                .fillMaxWidth()
-                .border(1.dp, Color.Black)
-                .padding(8.dp),
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            modifier = Modifier.fillMaxWidth()
         )
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -116,78 +124,71 @@ fun MovieDetailPage() {
         Text(
             text = movie_bio,
             fontSize = 16.sp,
-            modifier = Modifier
-                .fillMaxWidth()
-                .border(1.dp, Color.Gray)
-                .padding(8.dp)
+            textAlign = TextAlign.Center,
+            modifier = Modifier.fillMaxWidth()
         )
 
         Spacer(modifier = Modifier.height(16.dp))
 
-
-        Spacer(modifier = Modifier.height(16.dp))
-
         Text(
-            text = movie_year,
+            text = "Year: $movie_year",
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
-            modifier = Modifier
-                .fillMaxWidth()
-                .border(1.dp, Color.Gray)
-                .padding(8.dp)
-        )
-
-        Text(
-            text = "Original language: en    English",
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier
-                .fillMaxWidth()
-                .border(1.dp, Color.Gray)
-                .padding(8.dp)
+            textAlign = TextAlign.Center,
+            modifier = Modifier.fillMaxWidth()
         )
 
         Spacer(modifier = Modifier.height(8.dp))
 
         Text(
-            text = "Genres",
+            text = "Original Language: English",
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
-            modifier = Modifier
-                .fillMaxWidth()
-                .border(1.dp, Color.Gray)
-                .padding(8.dp)
+            textAlign = TextAlign.Center,
+            modifier = Modifier.fillMaxWidth()
         )
 
+        Spacer(modifier = Modifier.height(8.dp))
+
         Text(
-            text = movie_genre,
+            text = "Genres: $movie_genre",
             fontSize = 16.sp,
-            modifier = Modifier
-                .fillMaxWidth()
-                .border(1.dp, Color.Gray)
-                .padding(8.dp)
+            textAlign = TextAlign.Center,
+            modifier = Modifier.fillMaxWidth()
         )
 
         Spacer(modifier = Modifier.height(20.dp))
-        Button(
-            onClick = {
-                val intent = Intent(context, VideoPlayerActivity::class.java)
-                intent.putExtra("Key", movie_url)
-                intent.putExtra("Title", movie_title)
-                intent.putExtra("Sub", movie_sub)
-                intent.putExtra("Bio", movie_bio)
-                intent.putExtra("thumbnail", movie_image)
-                context.startActivity(intent)
-            },
-            modifier = Modifier.align(Alignment.CenterHorizontally),
-            shape = RoundedCornerShape(topStart = 10.dp, bottomEnd = 10.dp),
-            elevation = ButtonDefaults.buttonElevation(
-             defaultElevation = 20.dp
-            )
+
+        Surface(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(56.dp)
+                .padding(horizontal = 16.dp),
+            color = Color(0xFFBA68C8), // Button background color
+
+            shape = RoundedCornerShape(10.dp)
         ) {
-            Icon(Icons.Filled.PlayArrow, contentDescription = null)
-            Spacer(modifier = Modifier.width(8.dp))
-            Text(text = "Play")
+            Button(
+                onClick = {
+                    val intent = Intent(context, VideoPlayerActivity::class.java)
+                    intent.putExtra("Key", movie_url)
+                    intent.putExtra("Title", movie_title)
+                    intent.putExtra("Sub", movie_sub)
+                    intent.putExtra("Bio", movie_bio)
+                    intent.putExtra("thumbnail", movie_image)
+                    context.startActivity(intent)
+                },
+                modifier = Modifier.fillMaxSize(),
+                colors = ButtonDefaults.textButtonColors(contentColor = Color.White),
+                contentPadding = PaddingValues(horizontal = 16.dp)
+
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(Icons.Filled.PlayArrow, contentDescription = null)
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(text = "Play", fontSize = 18.sp)
+                }
+            }
         }
     }
 }
