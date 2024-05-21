@@ -88,6 +88,7 @@ fun MovieDetailPage() {
             .fillMaxSize()
             .background(color = backgroundColor)
             .padding(horizontal = 16.dp)
+            .verticalScroll(rememberScrollState())
     ) {
 
         SubcomposeAsyncImage(
