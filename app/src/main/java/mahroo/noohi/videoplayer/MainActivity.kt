@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -34,13 +35,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.navigation.compose.rememberNavController
 import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
 import kotlinx.coroutines.launch
 import mahroo.noohi.videoplayer.includes.Tools.parseJsonFromAssets
 import mahroo.noohi.videoplayer.model.MovieModel
+import mahroo.noohi.videoplayer.ui.theme.Pink40
+import mahroo.noohi.videoplayer.ui.theme.Pink80
 import mahroo.noohi.videoplayer.ui.theme.Purple80
 import mahroo.noohi.videoplayer.ui.theme.VideoPlayerTheme
 
@@ -84,19 +85,25 @@ fun ListViewContent() {
                         .fillMaxWidth()
                         .height(150.dp),
                         contentAlignment = Alignment.Center
-                ) {
-                    Text(text = " Welcome! ",  fontWeight = FontWeight.Bold,
-                        fontStyle = FontStyle.Italic, fontSize = 25.sp)
+                )
+                {
+                    Image(
+                        painter = painterResource(id = R.drawable.play),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(100.dp)
+                            .padding(10.dp),
+                        contentScale = ContentScale.Crop
+                    )
                 }
-
                 Divider()
-                NavigationDrawerItem(label = { Text(text = "Home", color = Purple80) },
+                NavigationDrawerItem(label = { Text(text = "Home", color = Pink40) },
                     selected = false,
                     icon = {
                         Icon(
                             imageVector = Icons.Default.Home,
                             contentDescription = "Home",
-                            tint = Purple80
+                            tint = Pink80
                         )
                     },
                     onClick = {
@@ -104,13 +111,13 @@ fun ListViewContent() {
                             drawerState.close()
                         }
                     })
-                NavigationDrawerItem(label = { Text(text = "YouTube", color = Purple80) },
+                NavigationDrawerItem(label = { Text(text = "YouTube", color = Pink40) },
                     selected = false,
                     icon = {
                         Icon(
                             imageVector = Icons.Default.ArrowForward,
                             contentDescription = "YouTube",
-                            tint = Purple80
+                            tint = Pink80
                         )
                     },
                     onClick = {
@@ -120,13 +127,13 @@ fun ListViewContent() {
                         val intent = Intent(context, YouTubeActivity::class.java) // Use context here
                         context.startActivity(intent)
                     })
-                NavigationDrawerItem(label = { Text(text = "Logout", color = Purple80) },
+                NavigationDrawerItem(label = { Text(text = "Logout", color = Pink40) },
                     selected = false,
                     icon = {
                         Icon(
                             imageVector = Icons.Default.ExitToApp,
                             contentDescription = "Logout",
-                            tint = Purple80
+                            tint = Pink80
                         )
                     },
                     onClick = {
@@ -144,7 +151,7 @@ fun ListViewContent() {
             topBar = {
                 val coroutineScopes = rememberCoroutineScope()
                 TopAppBar(
-                    title = { Text(text = "Video Player Demo") },
+                    title = { Text(text = "Video Player ", color = Color.Black,fontWeight = FontWeight.Bold) },
                     colors = TopAppBarDefaults.topAppBarColors(
                         containerColor = Purple80,
                         titleContentColor = Color.White,
@@ -157,7 +164,7 @@ fun ListViewContent() {
                             }
                         }) {
                             Icon(
-                                Icons.Rounded.Menu, contentDescription = "MenuButton"
+                                Icons.Rounded.Menu, contentDescription = "MenuButton", tint = Color.Black
                             )
                         }
                     },
