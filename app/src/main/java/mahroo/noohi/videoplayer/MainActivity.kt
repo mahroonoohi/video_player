@@ -9,6 +9,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -40,8 +41,6 @@ import coil.request.ImageRequest
 import kotlinx.coroutines.launch
 import mahroo.noohi.videoplayer.includes.Tools.parseJsonFromAssets
 import mahroo.noohi.videoplayer.model.MovieModel
-import mahroo.noohi.videoplayer.ui.theme.Pink40
-import mahroo.noohi.videoplayer.ui.theme.Pink80
 import mahroo.noohi.videoplayer.ui.theme.Purple80
 import mahroo.noohi.videoplayer.ui.theme.VideoPlayerTheme
 
@@ -81,7 +80,7 @@ fun ListViewContent() {
             ModalDrawerSheet {
                 Box(
                     modifier = Modifier
-                        .background(Purple80)
+                        .background(Color(0xFFF3E5F5))
                         .fillMaxWidth()
                         .height(150.dp),
                         contentAlignment = Alignment.Center
@@ -97,13 +96,13 @@ fun ListViewContent() {
                     )
                 }
                 Divider()
-                NavigationDrawerItem(label = { Text(text = "Home", color = Pink40) },
+                NavigationDrawerItem(label = { Text(text = "Home",color = Color(0xFF01204E), fontWeight = FontWeight.Bold) },
                     selected = false,
                     icon = {
                         Icon(
                             imageVector = Icons.Default.Home,
                             contentDescription = "Home",
-                            tint = Pink80
+                            tint = Color(0xFFF72798)
                         )
                     },
                     onClick = {
@@ -111,13 +110,13 @@ fun ListViewContent() {
                             drawerState.close()
                         }
                     })
-                NavigationDrawerItem(label = { Text(text = "YouTube", color = Pink40) },
+                NavigationDrawerItem(label = { Text(text = "YouTube", color = Color(0xFF01204E), fontWeight = FontWeight.Bold) },
                     selected = false,
                     icon = {
                         Icon(
                             imageVector = Icons.Default.ArrowForward,
                             contentDescription = "YouTube",
-                            tint = Pink80
+                            tint = Color(0xFFF72798)
                         )
                     },
                     onClick = {
@@ -127,13 +126,13 @@ fun ListViewContent() {
                         val intent = Intent(context, YouTubeActivity::class.java) // Use context here
                         context.startActivity(intent)
                     })
-                NavigationDrawerItem(label = { Text(text = "Logout", color = Pink40) },
+                NavigationDrawerItem(label = { Text(text = "Logout", color = Color(0xFF01204E), fontWeight = FontWeight.Bold) },
                     selected = false,
                     icon = {
                         Icon(
                             imageVector = Icons.Default.ExitToApp,
                             contentDescription = "Logout",
-                            tint = Pink80
+                            tint = Color(0xFFF72798)
                         )
                     },
                     onClick = {
@@ -150,25 +149,34 @@ fun ListViewContent() {
         Scaffold(
             topBar = {
                 val coroutineScopes = rememberCoroutineScope()
-                TopAppBar(
-                    title = { Text(text = "Video Player ", color = Color.Black,fontWeight = FontWeight.Bold) },
-                    colors = TopAppBarDefaults.topAppBarColors(
-                        containerColor = Purple80,
-                        titleContentColor = Color.White,
-                        navigationIconContentColor = Color.White
-                    ),
-                    navigationIcon = {
-                        IconButton(onClick = {
-                            coroutineScopes.launch {
-                                drawerState.open()
-                            }
-                        }) {
-                            Icon(
-                                Icons.Rounded.Menu, contentDescription = "MenuButton", tint = Color.Black
+                Box(
+                    modifier = Modifier
+                        .border(2.dp,  Color(0xFF596FB7))
+                ) {
+                    TopAppBar(
+                        title = {
+                            Text(
+                                text = "Video Player",
+                                color = Color(0xFF01204E),
+                                fontWeight = FontWeight.Bold
                             )
-                        }
-                    },
-                )
+                        },
+                        colors = TopAppBarDefaults.topAppBarColors(
+                            containerColor = Color(0xFFF3E5F5)
+                        ),
+                        navigationIcon = {
+                            IconButton(onClick = {
+                                coroutineScopes.launch {
+                                    drawerState.open()
+                                }
+                            }) {
+                                Icon(
+                                    Icons.Rounded.Menu, contentDescription = "MenuButton", tint = Color.Black
+                                )
+                            }
+                        },
+                    )
+                }
             },
             content = { paddingValues -> VerticalListView(paddingValues) }
         )
@@ -180,7 +188,6 @@ fun VerticalListView(paddingValues: PaddingValues) {
     val context = LocalContext.current
     val COLUMN_COUNT = 2
     val GRID_SPACING = 8.dp
-    var landscape: Boolean = false
     val itemList = remember { parseJsonFromAssets(context, "data.json") }
     LazyVerticalGrid(
         columns = GridCells.Fixed(COLUMN_COUNT),
@@ -202,11 +209,13 @@ fun VerticalListView(paddingValues: PaddingValues) {
 @Composable
 fun MovieItemCard(item: MovieModel?, modifier: Modifier) {
     val context = LocalContext.current
-
+    val backgroundColor = Color(0xFFF3E5F5)
+    val borderColor = Color(0xFF01204E)
+    val borderWidth = 5.dp
     Card(
         modifier = Modifier
             .padding(10.dp)
-            .background(color = Color.White)
+            .border(borderWidth, borderColor, RoundedCornerShape(10.dp))
             .clickable {
                 val intent = Intent(context, VideoDescriptionActivity::class.java)
                 intent.putExtra("Key", item!!.trailer_url)
@@ -218,7 +227,10 @@ fun MovieItemCard(item: MovieModel?, modifier: Modifier) {
                 intent.putExtra("Genres", item!!.genres)
                 context.startActivity(intent)
             },
-        shape = RoundedCornerShape(10.dp)
+        shape = RoundedCornerShape(10.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = backgroundColor
+        )
     ) {
         Column(
             modifier = modifier
@@ -251,9 +263,10 @@ fun MovieItemCard(item: MovieModel?, modifier: Modifier) {
                     .fillMaxWidth(),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
-                textAlign = TextAlign.Center, fontStyle = FontStyle.Normal
+                textAlign = TextAlign.Center, fontStyle = FontStyle.Normal,
+                fontWeight = FontWeight.Bold
             )
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(20.dp))
         }
     }
 }

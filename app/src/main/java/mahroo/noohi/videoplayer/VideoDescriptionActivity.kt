@@ -108,8 +108,8 @@ fun MovieDetailPage() {
                 .fillMaxWidth()
                 .height(220.dp)
                 .border(
-                    width = 1.dp,
-                    color = Color.LightGray,
+                    width = 4.dp,
+                    color = Color(0xFF495371),
                     shape = RoundedCornerShape(8.dp)
                 )
         )
