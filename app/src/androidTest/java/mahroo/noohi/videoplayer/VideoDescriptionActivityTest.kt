@@ -1,4 +1,3 @@
-
 package mahroo.noohi.videoplayer
 
 import android.content.Intent

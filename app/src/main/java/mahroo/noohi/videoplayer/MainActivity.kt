@@ -41,7 +41,6 @@ import coil.request.ImageRequest
 import kotlinx.coroutines.launch
 import mahroo.noohi.videoplayer.includes.Tools.parseJsonFromAssets
 import mahroo.noohi.videoplayer.model.MovieModel
-import mahroo.noohi.videoplayer.ui.theme.Purple80
 import mahroo.noohi.videoplayer.ui.theme.VideoPlayerTheme
 
 class MainActivity : ComponentActivity() {
