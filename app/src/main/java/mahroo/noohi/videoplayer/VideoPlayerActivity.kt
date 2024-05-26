@@ -56,7 +56,15 @@ var passedSubUrl: String = ""
 var passedBio: String = ""
 var passedTitle: String = ""
 
-
+/**
+ * Activity to play a video.
+ *
+ * This activity retrieves video details from the intent extras and displays them using a Compose UI.
+ * The details include the video URL, subtitle URL, biography, and title.
+ * The activity sets the content to a MaterialTheme and Surface, wrapping around the Player composable.
+ *
+ * Author: Zahra Amirinezhad
+ */
 class VideoPlayerActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,6 +86,18 @@ class VideoPlayerActivity : ComponentActivity() {
     }
 }
 
+
+
+
+/**
+ * Composable function to display a video player.
+ *
+ * This function creates a video player and displays it in a PlayerView.
+ * It manages the player's lifecycle events, such as start, resume, pause, and stop.
+ * When the player is clicked, it toggles the visibility of a text overlay showing the video title.
+ *
+ * Author: Zahra Amirinezhad
+ */
 @Composable
 @androidx.annotation.OptIn(UnstableApi::class)
 fun Player() {
@@ -157,7 +177,6 @@ fun Player() {
         modifier = Modifier
             .fillMaxSize()
             .clickable { isFullScreenVisible = !isFullScreenVisible }) {
-        // Your AndroidView
         AndroidView(
             factory = { playerView },
             modifier = Modifier
@@ -165,7 +184,6 @@ fun Player() {
                 .aspectRatio(16 / 9f)
                 .align(Alignment.Center)
         )
-        // Text over the AndroidView
         if (isFullScreenVisible) {
             Text(
                 text = passedTitle,
@@ -178,6 +196,21 @@ fun Player() {
 
 }
 
+
+/**
+ * Composable function to observe lifecycle events of a LifecycleOwner.
+ *
+ * This function creates a DisposableEffect that observes the lifecycle events of the provided
+ * LifecycleOwner and invokes the provided onEvent callback when these events occur. It adds a
+ * LifecycleEventObserver to the LifecycleOwner's lifecycle and removes it when the composable
+ * is disposed.
+ *
+ * @param lifecycleOwner The LifecycleOwner whose lifecycle events will be observed.
+ * @param onEvent A callback function that will be invoked when a lifecycle event occurs. It takes
+ * two parameters: the LifecycleOwner and the Lifecycle.Event.
+ *
+ * Author: Zahra Amirinezhad
+ */
 @Composable
 fun ComposableLifecycle(
     lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
@@ -200,7 +233,17 @@ fun ComposableLifecycle(
     }
 }
 
-
+/**
+ * Initializes and configures an  instance for video playback.
+ *
+ * This function creates an  instance, sets up a video MediaItem with optional subtitles,
+ * prepares the player for playback, and attaches it to a PlayerView for rendering.
+ *
+ * @param context The context used to create the Player and PlayerView.
+ * @return A PlayerView instance with the configured ExoPlayer attached.
+ *
+ * Author: Zahra Amirinezhad
+ */
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 fun initPlayer(context: Context): PlayerView {
     // Create the ExoPlayer instance
@@ -255,6 +298,20 @@ fun initPlayer(context: Context): PlayerView {
 //    }
 }
 
+
+/**
+ * Builds a MediaSource for the given URI with the specified default HTTP data source factory.
+ *
+ * This function determines the content type of the URI and creates an appropriate MediaSource
+ * based on that type using the provided default HTTP data source factory.
+ *
+ * @param uri The URI of the media.
+ * @param defaultHttpDataSourceFactory The default HTTP data source factory to use for fetching media.
+ * @param overrideExtension An optional file extension override.
+ * @return A MediaSource instance for the given URI.
+ *
+ * Author: Zahra Amirinezhad
+ */
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 fun buildMediaSource(
     uri: Uri,
@@ -281,6 +338,17 @@ fun buildMediaSource(
     }
 }
 
+/**
+ * Creates a PlayerView composable for displaying video playback.
+ *
+ * This function creates a PlayerView instance with the provided ExoPlayer attached,
+ * ensuring that the player is properly disposed of when the composable is removed.
+ *
+ * @param player The ExoPlayer instance to attach to the PlayerView.
+ * @return A PlayerView composable instance.
+ *
+ * Author: Mahroo Noohi & Zahra Amirinezhad
+ */
 @Composable
 fun createPlayerView(player: Player?): PlayerView {
     val context = LocalContext.current
