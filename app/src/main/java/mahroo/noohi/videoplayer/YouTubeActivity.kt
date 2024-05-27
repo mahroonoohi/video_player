@@ -46,6 +46,12 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Abs
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import mahroo.noohi.videoplayer.ui.theme.VideoPlayerTheme
 
+
+/**
+ * Activity responsible for displaying YouTube videos within the application.
+ * Extends [ComponentActivity] and sets its content to the main screen of the video player.
+ * Author: Mahroo Noohi
+ */
 class YouTubeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +64,12 @@ class YouTubeActivity : ComponentActivity() {
 }
 
 
+/**
+ * Composable function representing the main screen of the video player application.
+ * This screen allows users to enter YouTube video URLs, add them to the playlist, and view the videos.
+ *
+ * @Author Mahroo Noohi
+ */
 @Composable
 fun MainScreen() {
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -118,6 +130,17 @@ fun MainScreen() {
     }
 }
 
+
+/**
+ * Composable function for displaying a YouTube player to play videos.
+ *
+ * This function creates a YouTubePlayerView with the provided YouTube video ID and attaches it to the lifecycle owner.
+ *
+ * @param youtubeVideoId The ID of the YouTube video to be played.
+ * @param lifecycleOwner The LifecycleOwner that controls the lifecycle of the YouTube player.
+ *
+ * @Author Mahroo Noohi
+ */
 @Composable
 fun YoutubePlayer(
     youtubeVideoId: String,
@@ -141,6 +164,18 @@ fun YoutubePlayer(
     )
 }
 
+
+/**
+ * Extracts the YouTube video ID from the provided YouTube video URL.
+ *
+ * This function uses a regular expression to extract the video ID from various YouTube video URL formats.
+ * If a valid video ID is found in the URL, it returns the ID; otherwise, it returns null.
+ *
+ * @param url The YouTube video URL from which to extract the video ID.
+ * @return The extracted YouTube video ID, or null if no valid ID is found.
+ *
+ * @Author Mahroo Noohi
+ */
 fun extractVideoId(url: String): String? {
     val regex = "(?<=watch\\?v=|/videos/|embed\\/|youtu.be\\/|\\/v\\/|\\/e\\/|watch\\?v%3D|watch\\?feature=player_embedded&v=|%2Fvideos%2F|embed%2F|youtu.be%2F|\\/v%2F)[^#\\&\\?\\n]*".toRegex()
     val matchResult = regex.find(url)

@@ -8,6 +8,10 @@ import mahroo.noohi.videoplayer.model.MovieResponse
 import java.io.IOException
 import java.io.InputStream
 
+/**
+ * Video Data.
+ * Author: Zahra Amirinezhad
+ */
 
 object Tools {
     private val gsonConvertor by lazy { Gson() }

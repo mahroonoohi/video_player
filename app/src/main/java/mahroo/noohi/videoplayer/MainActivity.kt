@@ -41,8 +41,12 @@ import coil.request.ImageRequest
 import kotlinx.coroutines.launch
 import mahroo.noohi.videoplayer.includes.Tools.parseJsonFromAssets
 import mahroo.noohi.videoplayer.model.MovieModel
-import mahroo.noohi.videoplayer.ui.theme.Purple80
 import mahroo.noohi.videoplayer.ui.theme.VideoPlayerTheme
+
+/**
+ * The main activity of the application.
+ * Author: Maroo Noohi
+ */
 
 class MainActivity : ComponentActivity() {
 
@@ -57,6 +61,11 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+
+/**
+ * A preview function for the main screen.
+ * Author: Mahroo Noohi
+ */
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
@@ -65,6 +74,20 @@ fun GreetingPreview() {
     }
 }
 
+/**
+ * The main content of the application and Home screen, including a navigation drawer and top app bar.
+ *
+ * This composable function sets up the primary user interface for the application, combining several key components:
+ *
+ * - **Navigation Drawer**: A slide-out menu accessible from the left edge of the screen. This drawer contains items like "Home", "YouTube", and "Logout", each performing specific actions when clicked.
+ * - **Top App Bar**: A bar at the top of the screen displaying the title "Video Player" and a menu icon to open the navigation drawer.
+ * - **Main Content Area**: The main display area of the application, which currently shows a vertical grid of movie items using the `VerticalListView` composable function.
+ * - **Scaffold Structure**: The `Scaffold` composable provides a consistent layout structure, positioning the top app bar and the content area.
+ *
+ * This function ensures that the user interface is both functional and visually appealing, providing a seamless user experience for navigating through the application.
+ *
+ * Author: Mahroo Noohi & Zahra Amirinezhad
+ */
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -183,6 +206,22 @@ fun ListViewContent() {
     }
 }
 
+
+
+/**
+ * A composable function for displaying a vertical list of items for movies.
+ *
+ * This function uses a `LazyVerticalGrid` to display a list of movies in a grid format.
+ * It reads movie data from a JSON file located in the assets folder, parses it into a list of
+ * `MovieModel` objects, and then displays each movie in a grid with a specified number of columns.
+ * Each item in the grid is represented by a `MovieItemCard` composable function.
+ *
+ * @param paddingValues The padding values to be applied to the list to ensure proper spacing
+ *                      around the grid and its items. This ensures that the grid items are not
+ *                      displayed too close to the edges of the screen or to each other.
+ *
+ * Author: Mahroo Noohi & Zahra Amirinezhad
+ */
 @Composable
 fun VerticalListView(paddingValues: PaddingValues) {
     val context = LocalContext.current
@@ -206,6 +245,19 @@ fun VerticalListView(paddingValues: PaddingValues) {
         })
 }
 
+
+/**
+ * A composable function for displaying a card view of a movie item.
+ *
+ * This function creates a card view for a single movie item. The card displays the movie's thumbnail,
+ * title, and includes a click event to navigate to a detailed description screen. The card has a custom
+ * background color, border color, and border width. It also handles image loading and error scenarios.
+ *
+ * @param item The movie item to be displayed, containing details like the thumbnail URL, title, subtitle, bio, etc.
+ * @param modifier The modifier to be applied to the card, allowing for customization of its appearance and layout.
+ *
+ * Author: Mahroo Noohi & Zahra Amirinezhad
+ */
 @Composable
 fun MovieItemCard(item: MovieModel?, modifier: Modifier) {
     val context = LocalContext.current
@@ -271,6 +323,19 @@ fun MovieItemCard(item: MovieModel?, modifier: Modifier) {
     }
 }
 
+
+/**
+ * A composable function for displaying a styled divider between list items.
+ *
+ * This function creates a `Divider` composable that is used to visually separate items in a list.
+ * The divider has padding applied horizontally and vertically, and its color is derived from the
+ * current theme's on-surface color with reduced opacity to ensure a subtle appearance.
+ *
+ * This function is intended to be used within a list to provide a clear visual separation between
+ * items, enhancing the overall readability and structure of the list.
+ *
+ * Author: Mahroo Noohi & Zahra Amirinezhad
+ */
 @Composable
 private fun ListItemDivider() {
     Divider(

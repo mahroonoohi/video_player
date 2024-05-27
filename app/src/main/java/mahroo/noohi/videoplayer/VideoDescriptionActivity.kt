@@ -54,6 +54,16 @@ var movie_bio: String = ""
 var movie_year: String = ""
 var movie_genre: String = ""
 
+/**
+ * Activity to display the details of a selected movie.
+ *
+ * This activity retrieves movie details from the intent extras and displays them using a Compose UI.
+ * The details include the movie's thumbnail URL, trailer URL, title, subtitle, biography, release year, and genres.
+ * The activity sets the content to a custom theme and layout defined in Compose.
+ *
+ * Author: Mahroo Noohi & Kiana Mahdian
+ */
+
 class VideoDescriptionActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,6 +86,24 @@ class VideoDescriptionActivity : ComponentActivity() {
         }
     }
 }
+
+
+
+/**
+ * A composable function to display detailed information about a movie.
+ *
+ * This function creates a layout to display various details of a movie, including its image, title,
+ * biography, release year, original language, genres, and a button to play the movie.
+ *
+ * @param movie_image The URL of the movie's thumbnail image.
+ * @param movie_title The title of the movie.
+ * @param movie_bio The biography or description of the movie.
+ * @param movie_year The release year of the movie.
+ * @param movie_genre The genres of the movie.
+ * @param movie_url The URL of the movie's trailer or video content.
+ *
+ * Author: Mahroo Noohi & Kiana Mahdian
+ */
 @Preview
 @Composable
 fun MovieDetailPage() {

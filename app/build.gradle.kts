@@ -50,7 +50,6 @@ android {
 }
 
 dependencies {
-
     implementation("androidx.core:core-ktx:1.13.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.0")
     implementation("androidx.activity:activity-compose:1.9.0")
@@ -59,27 +58,17 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
-    implementation(platform("androidx.compose:compose-bom:2023.08.00"))
-    implementation(platform("androidx.compose:compose-bom:2023.08.00"))
-    implementation(platform("androidx.compose:compose-bom:2023.08.00"))
-    implementation(platform("androidx.compose:compose-bom:2023.08.00"))
-    implementation(platform("androidx.compose:compose-bom:2023.08.00"))
+
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    androidTestImplementation(platform("androidx.compose:compose-bom:2023.08.00"))
+    androidTestImplementation("androidx.test.espresso:espresso-intents:3.5.1")
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
-    androidTestImplementation(platform("androidx.compose:compose-bom:2023.08.00"))
-    androidTestImplementation(platform("androidx.compose:compose-bom:2023.08.00"))
-    androidTestImplementation(platform("androidx.compose:compose-bom:2023.08.00"))
-    androidTestImplementation(platform("androidx.compose:compose-bom:2023.08.00"))
-    androidTestImplementation(platform("androidx.compose:compose-bom:2023.08.00"))
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
-    implementation ("com.squareup.retrofit2:converter-gson:2.5.0")
-    implementation ("com.google.code.gson:gson:2.10")
-
+    implementation("com.squareup.retrofit2:converter-gson:2.5.0")
+    implementation("com.google.code.gson:gson:2.10")
 
     implementation("io.coil-kt:coil-compose:2.5.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
@@ -87,13 +76,14 @@ dependencies {
     implementation("androidx.media3:media3-exoplayer:1.3.1")
     implementation("androidx.media3:media3-session:1.3.1")
     implementation("androidx.media3:media3-ui:1.3.1")
-
     implementation("androidx.media3:media3-exoplayer-dash:1.3.1")
     implementation("androidx.media3:media3-exoplayer-hls:1.3.1")
     implementation("androidx.media3:media3-exoplayer-smoothstreaming:1.3.1")
+
     implementation("androidx.compose.animation:animation:1.6.7")
     implementation("androidx.compose.runtime:runtime:1.6.7")
     implementation("androidx.compose.runtime:runtime-saveable:1.6.7")
+<<<<<<< HEAD
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.0")
     implementation("androidx.navigation:navigation-runtime-ktx:[2.7.7]")
     implementation ("androidx.navigation:navigation-compose:2.7.7")
@@ -101,3 +91,12 @@ dependencies {
     implementation ("androidx.compose.ui:ui:1.6.7")
     implementation ("androidx.compose.material:material:1.6.7")
 }
+=======
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
+    implementation("androidx.navigation:navigation-runtime-ktx:2.7.3")
+    implementation("androidx.navigation:navigation-compose:2.7.3")
+
+    implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0")
+    implementation("androidx.compose.material:material:1.6.7")
+}
+>>>>>>> a355944eae469af1a90472a82029f62d7d16ff05
